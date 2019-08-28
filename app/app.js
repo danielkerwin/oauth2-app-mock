@@ -59,11 +59,11 @@ const strategies = auth.map(client => {
     accountId: client.accountId,
     strategy: new OAuth2Strategy(
       {
-        authorizationURL: `${oauth2Base}/${client.accountId}/authorize?v=1.0`,
-        tokenURL: `${oauth2Base}/${client.accountId}/token?v=2.0`,
+        authorizationURL: `${oauth2Base}/${client.accountId}/authorize?v=1.0&state=${client.accountId}`,
+        tokenURL: `${oauth2Base}/${client.accountId}/token?v=2.0&state=${client.accountId}`,
         clientID: client.clientId,
         clientSecret: client.clientSecret,
-        callbackURL: `/api/account/${client.accountId}/callback`,
+        callbackURL: `/api/callback`,
       },
       authCallback
     ),

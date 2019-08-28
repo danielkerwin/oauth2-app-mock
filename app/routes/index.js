@@ -12,7 +12,7 @@ const passportLogin = (req, res, next) =>
 
 // callback
 const passportCallback = (req, res, next) =>
-  passport.authenticate(`sso-${req.params.accountId}`, {
+  passport.authenticate(`sso-${req.query.state}`, {
     failureRedirect: '/failure',
   })(req, res, next);
 
@@ -49,7 +49,7 @@ router.get('/logout', function(req, res) {
 
 router.get('/api/account/:accountId/refresh', passportRefresh);
 
-router.get('/api/account/:accountId/callback', passportCallback, function(req, res) {
+router.get('/api/callback', passportCallback, function(req, res) {
   res.redirect(req.session.returnTo || '/user');
 });
 
